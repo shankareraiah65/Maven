@@ -1,21 +1,37 @@
 package com.crm.testscripts;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-public class CampaignModule {
+import com.crm.generic.BaseClass;
+
+@Listeners(com.crm.generic.ListenerImplementation.class)
+public class CampaignModule extends BaseClass {
 	@Test
-	public void createCampaign()
+	public void createCampaign() 
 	{
-		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("https://www.google.com");
-		String title = driver.getTitle();
-		Reporter.log(title,true);
-		driver.quit();
+		driver.findElement(By.linkText("Campaigns")).click();
+		driver.findElement(By.cssSelector("input[value='New Campaign']")).click();
+		driver.findElement(By.cssSelector("input[name='property(Campaign Name)']")).sendKeys("Praveen Laptop Expo");
+		driver.findElement(By.cssSelector("input[value='Save']")).click();
+		String campName = driver.findElement(By.id("value_Campaign Name")).getText();
+		Assert.assertEquals(campName, "Praveen Laptop Expo");
+		Reporter.log("Campaign created",true);
 	}
 	
+	@Test
+	public void deleteCampaign() throws InterruptedException
+	{
+		driver.findElement(By.linkText("Campaigns")).click();
+		driver.findElement(By.linkText("Praveen Laptop Expo")).click();
+		driver.findElement(By.cssSelector("input[value='Delete']")).click();
+		Thread.sleep(2000);
+		driver.switchTo().alert().accept();
+		Reporter.log("Campaign deleted",true);
+	}
 }
