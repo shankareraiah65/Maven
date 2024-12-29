@@ -48,10 +48,10 @@ public class CampaignModule extends BaseClass {
 		 cp.getStartDateTbx().sendKeys(String.valueOf(start));
 		 cp.getEndDateTbx().sendKeys(String.valueOf(end));
 		 
-		Select type1 = new Select(cp.getTypeListBox());
-		type1.selectByVisibleText(type);
-		Select status1 = new Select(cp.getStatusListBox());
-		status1.selectByVisibleText(status);
+		Select typeListBox = new Select(cp.getTypeListBox());
+		typeListBox.selectByVisibleText(type);
+		Select statusListBox = new Select(cp.getStatusListBox());
+		statusListBox.selectByVisibleText(status);
 		cp.getExpectedRevenueTbx().sendKeys(String.valueOf(expectedRevenue));
 		cp.getActualCostTbx().sendKeys(String.valueOf(actualCost));
 		cp.getNumSentTbx().sendKeys(String.valueOf(numSent));
