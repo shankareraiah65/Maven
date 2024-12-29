@@ -24,7 +24,7 @@ public class FileLibrary
 	 */
 	public String getPropertyData(String key) throws IOException
 	{
-		FileInputStream fis = new FileInputStream("./data/commondata.properties");
+		FileInputStream fis = new FileInputStream("./src/test/resources/data/commondata.properties");
 		Properties p = new Properties();
 		p.load(fis);
 		return p.getProperty(key);
@@ -41,7 +41,7 @@ public class FileLibrary
 	 */
 	public String getExcelData(String sheetName , int row , int cell) throws EncryptedDocumentException, IOException
 	{
-		FileInputStream fis = new FileInputStream("./data/testscript.xlsx");
+		FileInputStream fis = new FileInputStream("./src/test/resources/data/testscript.xlsx");
 		Workbook wb = WorkbookFactory.create(fis);
 		return wb.getSheet(sheetName).getRow(row).getCell(cell).getStringCellValue();		
 	}

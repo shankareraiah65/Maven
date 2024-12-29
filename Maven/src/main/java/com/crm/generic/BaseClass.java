@@ -1,5 +1,6 @@
 package com.crm.generic;
 
+import java.io.IOException;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
@@ -13,31 +14,40 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
+import com.crm.generic.FileLibrary;
+import com.crm.pom.LoginPage;
+import com.crm.pom.HomePage;
+
 public class BaseClass
 {
 	public static WebDriver driver;
+	public static FileLibrary f=new FileLibrary();
 	@BeforeTest
-	public void openBrowser()
+	public void openBrowser() throws IOException
 	{
 		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.get("http://192.168.20.128:8080/crm/HomePage.do");
+		String url = f.getPropertyData("url");
+		driver.get(url);
 		Reporter.log("open browser",true);
 	}
 	@BeforeMethod
-	public void login()
+	public void login() throws IOException
 	{
-		driver.findElement(By.id("userName")).sendKeys("rashmi@dell.com");
-		driver.findElement(By.id("passWord")).sendKeys("123456");
-		driver.findElement(By.cssSelector("input[title='Sign In']")).click();
+		String un = f.getPropertyData("un");
+		String pwd = f.getPropertyData("pwd");
+		LoginPage l=new LoginPage(driver);
+		l.login(un,pwd);
 		Reporter.log("login",true);
 	}
 	@AfterMethod
-	public void logout()
+	public void logout() throws InterruptedException
 	{
-		driver.findElement(By.xpath("//a[contains(text(),'Logout ')]")).click();
+		HomePage h=new HomePage(driver);
+		Thread.sleep(2000);
+		h.setLogout();
 		Reporter.log("logout",true);
 	}
 	@AfterTest
