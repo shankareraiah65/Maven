@@ -3,6 +3,7 @@ package com.crm.generic;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Properties;
 
 import org.apache.poi.EncryptedDocumentException;
@@ -45,6 +46,21 @@ public class FileLibrary
 		Workbook wb = WorkbookFactory.create(fis);
 		return wb.getSheet(sheetName).getRow(row).getCell(cell).getStringCellValue();		
 	}
+	
+	public double getExcelDataNumeric(String sheetName , int row , int cell) throws EncryptedDocumentException, IOException
+	{
+		FileInputStream fis = new FileInputStream("./src/test/resources/data/testscript.xlsx");
+		Workbook wb = WorkbookFactory.create(fis);
+		return wb.getSheet(sheetName).getRow(row).getCell(cell).getNumericCellValue();		
+	}
+	
+	public Date getExcelDataDate(String sheetName , int row , int cell) throws EncryptedDocumentException, IOException
+	{
+		FileInputStream fis = new FileInputStream("./src/test/resources/data/testscript.xlsx");
+		Workbook wb = WorkbookFactory.create(fis);
+		return wb.getSheet(sheetName).getRow(row).getCell(cell).getDateCellValue();		
+	}
+	
 	/**
 	 * This is generic method to write the data in excel file based on
 	 * SheetName , row , cell and String values that has been passeed
