@@ -3,16 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.crm.testscripts.CampaignModule">
+      <class name="com.crm.testscripts.LeadsModule">
         <methods>
           <include name="closeBrowser"/>
           <include name="logout"/>
-          <include name="createCampaign"/>
+          <include name="deleteLead"/>
           <include name="login"/>
-          <include name="deleteCampaign"/>
           <include name="openBrowser"/>
         </methods>
-      </class> <!-- com.crm.testscripts.CampaignModule -->
+      </class> <!-- com.crm.testscripts.LeadsModule -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
